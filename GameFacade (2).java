@@ -3,19 +3,21 @@ import game.*;
 import javafx.scene.layout.Pane;
 
 public class GameFacade {
+
     private Pane gamePane;
     private GameLoop loop;
     private Dino dino;
 
+    public static final double SCENE_WIDTH = 800;
+    public static final double SCENE_HEIGHT = 400;
+    public static final double GROUND_HEIGHT = 30;
+
     public Pane startGame() {
         gamePane = new Pane();
-        gamePane.setStyle("-fx-background-color: linear-gradient(to bottom, #ffffff, #e3f2fd);");
-
-        dino = new Dino();
+        double groundY = SCENE_HEIGHT - GROUND_HEIGHT;
+        dino = new Dino(groundY);
         gamePane.getChildren().add(dino.body);
-
         loop = new GameLoop(gamePane, dino);
-
         return gamePane;
     }
 
@@ -32,12 +34,14 @@ public class GameFacade {
     }
 
     public void restartGame() {
+        loop.stop();
         gamePane.getChildren().clear();
 
-        dino = new Dino();
+        double groundY = SCENE_HEIGHT - GROUND_HEIGHT;
+
+        dino = new Dino(groundY);
         gamePane.getChildren().add(dino.body);
 
-        loop.stop();
         loop = new GameLoop(gamePane, dino);
         loop.start();
     }
