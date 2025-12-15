@@ -1,18 +1,27 @@
-private void showGameOver() {
-        Label over = new Label("GAME OVER\n\nPRESS R TO RESTART");
-        over.setStyle(
-                "-fx-font-family: 'Press Start 2P';" +
-                        "-fx-font-size: 18px;" +
-                        "-fx-text-fill: black;" +
-                        "-fx-alignment: center;"
+package game;
+
+import javafx.geometry.Bounds;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class Obstacle {
+
+    public ImageView body;
+
+    public Obstacle(double x, double groundY) {
+        Image img = new Image(
+                getClass().getResourceAsStream("/images/cactus.png")
         );
 
-        over.setPrefWidth(WIDTH);
-        over.setLayoutY(HEIGHT / 2 - 40);
-        over.setAlignment(javafx.geometry.Pos.CENTER);
+        body = new ImageView(img);
+        body.setFitHeight(50);
+        body.setPreserveRatio(true);
 
-        gamePane.getChildren().add(over);
-        over.toFront();
+        body.setLayoutX(x);
+        body.setLayoutY(groundY - body.getFitHeight());
+    }
+
+    public Bounds getHitBox() {
+        return body.getBoundsInParent();
     }
 }
-\
