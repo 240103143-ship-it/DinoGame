@@ -1,8 +1,10 @@
 package game;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Snowflake {
+
     public Circle flake;
     private double speed;
 
@@ -12,11 +14,12 @@ public class Snowflake {
         flake.setCenterY(y);
         speed = 1 + Math.random() * 2;
     }
-    public void update() {
+
+    public void update(double height, double width) {
         flake.setCenterY(flake.getCenterY() + speed);
-        if (flake.getCenterY() > 300) {
+        if (flake.getCenterY() > height) {
             flake.setCenterY(0);
-            flake.setCenterX(Math.random() * 600);
+            flake.setCenterX(Math.random() * width);
         }
     }
 }
